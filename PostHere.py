@@ -12,11 +12,11 @@ def create_app():
         return message
 
     @app.route('/submit', methods=['POST'])
+    def submit():
         message = 'enter your post here'
         return message
 
     @app.route('/suggestions', methods=['GET'])
+    def suggestions():
         message = 'here are suggested posts'
         return message
-
-    return app
