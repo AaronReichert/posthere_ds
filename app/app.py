@@ -1,6 +1,9 @@
-from flask import Flask
+from flask import Flask, request
 import json
-from pred import upvote_predictor
+from .pred import upvote_predictor, predict_subreddit
+import pickle
+import numpy
+
 
 def create_app():
     '''Create and configure an instance of the Flask application'''
@@ -25,13 +28,13 @@ def create_app():
         text_input = request.values['text']
         results_input = request.values['results']
         
-
-        filename = 'Models\post_here_model.pkl'
-        load_model = pickle.load(open(filename, 'rb'))
+        # filename = 'Models\post_here_model.pkl'
+        # load_model = pickle.load(open(filename, 'rb'))
+        # predict_subreddit(text_input, results_input)
                 
         # with open('Models\post_here_model.pkl', 'rb') as g:
         #     model_ph = pickle.load(g)
-        # predictor_ph = post_here_predictor(model_ph)
+        # predictor_ph = predict_subreddit(load_model)
         # predictor_ph.predict(text_input, results_input)
 
         # with open("Models\up_vote_model.pickle", "rb") as f:
@@ -39,10 +42,10 @@ def create_app():
         # predictor_uv = upvote_predictor(model_uv)
         # predictor_uv.predict(title_input, text_input, "r/AskReddit")
 
-        with open("model.pickle", "rb") as f:
-            model = pickle.load(f)
-        predictor = upvote_predictor(model)
-        predictor.predict("This is a dumb title", "Text here", "r/AskReddit")
+        # with open("model.pickle", "rb") as f:
+        #     model = pickle.load(f)
+        # predictor = upvote_predictor(model)
+        # predictor.predict("This is a dumb title", "Text here", "r/AskReddit")
 
         return 'not sure how we want it displayed yet'
 

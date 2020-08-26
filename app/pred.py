@@ -1,8 +1,4 @@
 
-import basilica
-import pandas as pd
-import category_encoders
-
 def predict_subreddit(text, num_pred):
     proba = pd.Series(rand_search.predict_proba(text)[0])
     proba = subreddit_df['Subreddit'].unique()
@@ -15,6 +11,9 @@ def predict_subreddit(text, num_pred):
 class upvote_predictor:
     def __init__(self, model,):
         self.model = model
+        import basilica
+        import pandas as pd
+        import category_encoders        
     def prepare_string(self, string, pca):
         embedding = None
         with basilica.Connection('370a60d1-2938-b1bf-d813-0cb6954f5a0e') as c:
