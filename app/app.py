@@ -1,11 +1,10 @@
 from flask import Flask, request, jsonify
 import json
-from .pred import upvote_predictor
-# , predict_subreddit, decompress_pickle
+from .pred import upvote_predictor, predict_subreddit, decompress_pickle
 import pickle
 import numpy
 from pathlib import Path
-# import basilica
+import basilica
 
 
 def create_app():
@@ -33,16 +32,16 @@ def create_app():
 
         # pred_results = predict_subreddit(text_input, results_input)
         
-        # filename = 'Models\post_here_model.pkl'
+        # filename = r'..\Models\post_here_model.pbz2'
         # load_model = pickle.load(open(filename, 'rb'))
-        # predict_subreddit(text_input, results_input)
+        # sample_results = predict_subreddit(title_input, text_input, results_input)
                 
         # with open('Models\post_here_model.pkl', 'rb') as g:
         #     model_ph = pickle.load(g)
         # predictor_ph = predict_subreddit(load_model)
         # predictor_ph.predict(text_input, results_input)
 
-        
+        # ---------latest iteration eric-------
         # upvote_path = Path(r"C:\Users\Aaron\Desktop\posthere_ds\Models\up_vote_model.pickle")
         # with open(upvote_path, "rb") as f:
         #     model_uv = pickle.load(f)
