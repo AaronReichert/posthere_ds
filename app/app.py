@@ -32,30 +32,26 @@ def create_app():
 
         # pred_results = predict_subreddit(text_input, results_input)
         
-        # filename = r'..\Models\post_here_model.pbz2'
-        # load_model = pickle.load(open(filename, 'rb'))
-        # sample_results = predict_subreddit(title_input, text_input, results_input)
+        # --------Haley's model---------
+        filename = ('Models\post_here_model.pbz2')
+        load_model = pickle.load(open(filename, 'rb'))
+        sample_results = predict_subreddit(title_input, text_input, results_input)
                 
         # with open('Models\post_here_model.pkl', 'rb') as g:
         #     model_ph = pickle.load(g)
         # predictor_ph = predict_subreddit(load_model)
         # predictor_ph.predict(text_input, results_input)
 
-        # ---------latest iteration eric-------
+        # ---------Eric's model-------
         # upvote_path = Path(r"C:\Users\Aaron\Desktop\posthere_ds\Models\up_vote_model.pickle")
         # with open(upvote_path, "rb") as f:
         #     model_uv = pickle.load(f)
         # predictor_uv = upvote_predictor(model_uv)
         # pred_upvotes = predictor_uv.predict(title_input, text_input, "r/AskReddit")
 
-        # with open("model.pickle", "rb") as f:
-        #     model = pickle.load(f)
-        # predictor = upvote_predictor(model)
-        # pred_upvotes = predictor.predict(title_input, text_input, "r/AskReddit")
-
         # -----testing purposes only-----
-        if results_input == 1:
-            sample_results = {'suggested_reddit':'r/sample', 'pred_upvotes':74556}
+        # if results_input == 1:
+        #     sample_results = {'suggested_reddit':'r/sample', 'pred_upvotes':74556}
 
         return jsonify(sample_results)
         # return results_input
