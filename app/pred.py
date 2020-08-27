@@ -1,6 +1,17 @@
 
+
+def decompress_pickle(file):
+    import bz2
+    import pickle
+    import _pickle as cPickle
+    data = bz2.BZ2File(file)
+    data = cPickle.load(data)
+    return data
+
+
 def predict_subreddit(text, num_pred):
-    proba = pd.Series(rand_search.predict_proba(text)[0])
+    data = decompress_pickle('post_here_model.pbz2')
+    proba = pd.Series(decompress_pickle('C:\Users\Aaron\Desktop\posthere_ds\Models\post_here_model.pbz2').predict_proba(text)[0])
     proba = subreddit_df['Subreddit'].unique()
     prediction = (pd.Series(proba).sort_values(ascending=False)).reset_index(drop=True)
     if num_pred > 1:
