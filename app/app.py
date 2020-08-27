@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import json
-from .pred import upvote_predictor, predict_subreddit, decompress_pickle
+# from .pred import upvote_predictor, predict_subreddit, decompress_pickle
 import pickle
 import numpy
 
@@ -28,7 +28,7 @@ def create_app():
         text_input = request.values['text']
         results_input = request.values['results']
 
-        pred_results = predict_subreddit(text_input, results_input)
+        # pred_results = predict_subreddit(text_input, results_input)
         
         # filename = 'Models\post_here_model.pkl'
         # load_model = pickle.load(open(filename, 'rb'))
@@ -49,6 +49,10 @@ def create_app():
         # predictor = upvote_predictor(model)
         # predictor.predict("This is a dumb title", "Text here", "r/AskReddit")
 
-        return jsonify(pred_results)
+        if results_input == '1':
+            sample_results = {'suggested_reddit':'r/sample', 'pred_upvotes':74556}
+
+        return jsonify(sample_results)
+        # return results_input
 
     return app
