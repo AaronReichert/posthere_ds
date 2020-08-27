@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
 import json
-# from .pred import upvote_predictor, predict_subreddit, decompress_pickle
+from .pred import upvote_predictor
+# , predict_subreddit, decompress_pickle
 import pickle
 import numpy
+from pathlib import Path
+# import basilica
 
 
 def create_app():
@@ -24,9 +27,9 @@ def create_app():
 
     @app.route('/suggestions', methods=['POST'])
     def suggestions():
-        title_input = request.values['title']
-        text_input = request.values['text']
-        results_input = request.values['results']
+        title_input = request.json['title']
+        text_input = request.json['text']
+        results_input = request.json['results']
 
         # pred_results = predict_subreddit(text_input, results_input)
         
@@ -39,17 +42,20 @@ def create_app():
         # predictor_ph = predict_subreddit(load_model)
         # predictor_ph.predict(text_input, results_input)
 
-        # with open("Models\up_vote_model.pickle", "rb") as f:
+        
+        # upvote_path = Path(r"C:\Users\Aaron\Desktop\posthere_ds\Models\up_vote_model.pickle")
+        # with open(upvote_path, "rb") as f:
         #     model_uv = pickle.load(f)
         # predictor_uv = upvote_predictor(model_uv)
-        # predictor_uv.predict(title_input, text_input, "r/AskReddit")
+        # pred_upvotes = predictor_uv.predict(title_input, text_input, "r/AskReddit")
 
         # with open("model.pickle", "rb") as f:
         #     model = pickle.load(f)
         # predictor = upvote_predictor(model)
-        # predictor.predict("This is a dumb title", "Text here", "r/AskReddit")
+        # pred_upvotes = predictor.predict(title_input, text_input, "r/AskReddit")
 
-        if results_input == '1':
+        # -----testing purposes only-----
+        if results_input == 1:
             sample_results = {'suggested_reddit':'r/sample', 'pred_upvotes':74556}
 
         return jsonify(sample_results)

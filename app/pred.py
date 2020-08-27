@@ -1,4 +1,4 @@
-
+# import basilica
 
 def decompress_pickle(file):
     import bz2
@@ -11,7 +11,7 @@ def decompress_pickle(file):
 
 def predict_subreddit(text, num_pred):
     data = decompress_pickle('post_here_model.pbz2')
-    proba = pd.Series(decompress_pickle('C:\Users\Aaron\Desktop\posthere_ds\Models\post_here_model.pbz2').predict_proba(text)[0])
+    proba = pd.Series(decompress_pickle(r'C:\Users\Aaron\Desktop\posthere_ds\Models\post_here_model.pbz2').predict_proba(text)[0])
     proba = subreddit_df['Subreddit'].unique()
     prediction = (pd.Series(proba).sort_values(ascending=False)).reset_index(drop=True)
     if num_pred > 1:
