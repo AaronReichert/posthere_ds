@@ -1,6 +1,11 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 import json
-from pred import upvote_predictor
+from .pred import upvote_predictor, subreddit_prediction, decompress_pickle
+import pickle
+import numpy
+from pathlib import Path
+import basilica
+import en_core_web_sm
 
 def create_app():
     '''Create and configure an instance of the Flask application'''
@@ -21,29 +26,47 @@ def create_app():
 
     @app.route('/suggestions', methods=['POST'])
     def suggestions():
-        title_input = request.values['title']
-        text_input = request.values['text']
-        results_input = request.values['results']
-        
+        title_input = request.json['title']
+        text_input = request.json['text']
+        results_input = request.json['results']
+        # results_counter = results_input
 
-        filename = 'Models\post_here_model.pkl'
-        load_model = pickle.load(open(filename, 'rb'))
-                
-        # with open('Models\post_here_model.pkl', 'rb') as g:
-        #     model_ph = pickle.load(g)
-        # predictor_ph = post_here_predictor(model_ph)
-        # predictor_ph.predict(text_input, results_input)
+        # --------Haley's model---------
+        clf_model = decompress_pickle(r'Models\post_here_model.pbz2') 
+        nlp = en_core_web_sm.load()
+        sample_results = subreddit_prediction(title_input, text_input, results_input)
+        sample_results = sample_results.reset_index()
 
-        # with open("Models\up_vote_model.pickle", "rb") as f:
-        #     model_uv = pickle.load(f)
-        # predictor_uv = upvote_predictor(model_uv)
-        # predictor_uv.predict(title_input, text_input, "r/AskReddit")
+        sug_sub = (sample_results[0])              
 
-        with open("model.pickle", "rb") as f:
-            model = pickle.load(f)
-        predictor = upvote_predictor(model)
-        predictor.predict("This is a dumb title", "Text here", "r/AskReddit")
+        upvote_path = Path(r"C:\Users\Aaron\Desktop\posthere_ds\Models\up_vote_model.pickle")
+        with open(upvote_path, "rb") as f:
+            model_uv = pickle.load(f)
+        predictor_uv = upvote_predictor(model_uv)
 
-        return 'not sure how we want it displayed yet'
+        results = []
+        for sub in sample_results[0]:
+            results.append({
+                'suggested_subreddit':sub,
+                'pred_upvotes':predictor_uv.predict(title_input, text_input, sub)})
+        # if results_input > 1:
+        #     return jsonify(sample_results[0][:results_input])
+        # else:
+        #     return jsonify(sample_results[0][:1])
+        # sug_sub = (sample_results[0][0])              
+        # print(sample_results[0][-1])    
+        # sug_sub_list = []
+        # while results_counter > 0:
+        #     results_counter += -1
+        #     sug_sub = (sample_results[results_counter][0])  
+        #     sug_sub_list += sug_sub
+        # print(sug_sub_list)
+        # ---------Eric's model-------
+
+        # pred_upvotes = predictor_uv.predict(title_input, text_input, sug_sub)
+
+
+        return jsonify(results)
+        # return results_input
 
     return app
