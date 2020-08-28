@@ -39,7 +39,7 @@ def create_app():
 
         sug_sub = (sample_results[0])              
 
-        upvote_path = Path(r"C:\Users\Aaron\Desktop\posthere_ds\Models\up_vote_model.pickle")
+        upvote_path = Path(r"Models\up_vote_model.pickle")
         with open(upvote_path, "rb") as f:
             model_uv = pickle.load(f)
         predictor_uv = upvote_predictor(model_uv)
