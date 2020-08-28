@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from .pred import upvote_predictor, subreddit_prediction, decompress_pickle
+from .pred import upvote_predictor, subreddit_prediction
 import pickle
 from pathlib import Path
 

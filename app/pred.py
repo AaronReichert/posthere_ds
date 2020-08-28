@@ -13,15 +13,11 @@ def decompress_pickle(file):
     data = cPickle.load(data)
     return data
 
-# Load any compressed pickle file
-# def decompress_pickle(file):
-#     data = bz2.BZ2File(file, 'rb')
-#     data = cPickle.load(data)
-#     return data
 clf_model = decompress_pickle(r'Models/post_here_model.pbz2')
 nlp = en_core_web_sm.load()
 def get_word_vectors(docs):
     return [nlp(doc).vector for doc in docs]
+    
 def subreddit_prediction(title, text, num_pred):
     title = pd.Series(title)
     text = pd.Series(text)
@@ -32,19 +28,6 @@ def subreddit_prediction(title, text, num_pred):
     proba = pd.Series(proba)
     proba = clf_model.classes_
     prediction = pd.Series(proba).sort_values(ascending=False)
-    if num_pred > 1:
-        return prediction[:num_pred] 
-    else:
-        return prediction[:1]
-
-def predict_subreddit(title, text, num_pred):
-    title = pd.Series(title)
-    text = pd.Series(text)
-    df = pd.concat([title, text])
-    data = decompress_pickle(r'Models/post_here_model.pbz2')
-    proba = pd.Series(data.predict_proba(df)[0])
-    proba = subreddit_df['Subreddit'].unique()
-    prediction = (pd.Series(proba).sort_values(ascending=False)).reset_index(drop=True)
     if num_pred > 1:
         return prediction[:num_pred] 
     else:
