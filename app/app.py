@@ -3,13 +3,11 @@ from .pred import upvote_predictor, subreddit_prediction
 import pickle
 from pathlib import Path
 
+
 def create_app():
     '''Create and configure an instance of the Flask application'''
 
     app = Flask(__name__)
-    # app.config["SQLALCHEMY_DATABASE_URI"] = 
-    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    # db.init_app(app)
 
     @app.route('/')
     def root():
@@ -28,10 +26,12 @@ def create_app():
         # results_counter = results_input
 
         # --------Haley's model---------
-        sample_results = subreddit_prediction(title_input, text_input, results_input)
+        sample_results = subreddit_prediction(title_input,
+                                              text_input,
+                                              results_input)
         sample_results = sample_results.reset_index()
 
-        sug_sub = (sample_results[0])              
+        sug_sub = (sample_results[0])
 
         upvote_path = Path(r"Models/up_vote_model.pickle")
         with open(upvote_path, "rb") as f:
@@ -41,9 +41,9 @@ def create_app():
         results = []
         for sub in sample_results[0]:
             results.append({
-                'suggested_subreddit':sub,
-                'pred_upvotes':predictor_uv.predict(title_input, text_input, sub)})
-
+                'suggested_subreddit': sub,
+                'pred_upvotes': predictor_uv.predict(title_input,
+                                                     text_input, sub)})
 
         return jsonify(results)
 
