@@ -19,7 +19,7 @@ def decompress_pickle(file):
 #     data = bz2.BZ2File(file, 'rb')
 #     data = cPickle.load(data)
 #     return data
-clf_model = decompress_pickle(r'Models\post_here_model.pbz2')  
+clf_model = decompress_pickle(r'Models/post_here_model.pbz2')  
 clf_model
 nlp = en_core_web_sm.load()
 def get_word_vectors(docs):
@@ -43,7 +43,7 @@ def predict_subreddit(title, text, num_pred):
     title = pd.Series(title)
     text = pd.Series(text)
     df = pd.concat([title, text])
-    data = decompress_pickle(r'Models\post_here_model.pbz2')
+    data = decompress_pickle(r'Models/post_here_model.pbz2')
     proba = pd.Series(data.predict_proba(df)[0])
     proba = subreddit_df['Subreddit'].unique()
     prediction = (pd.Series(proba).sort_values(ascending=False)).reset_index(drop=True)

@@ -32,14 +32,14 @@ def create_app():
         # results_counter = results_input
 
         # --------Haley's model---------
-        clf_model = decompress_pickle(r'Models\post_here_model.pbz2') 
+        clf_model = decompress_pickle(r'Models/post_here_model.pbz2') 
         nlp = en_core_web_sm.load()
         sample_results = subreddit_prediction(title_input, text_input, results_input)
         sample_results = sample_results.reset_index()
 
         sug_sub = (sample_results[0])              
 
-        upvote_path = Path(r"Models\up_vote_model.pickle")
+        upvote_path = Path(r"Models/up_vote_model.pickle")
         with open(upvote_path, "rb") as f:
             model_uv = pickle.load(f)
         predictor_uv = upvote_predictor(model_uv)
