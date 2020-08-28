@@ -1,11 +1,7 @@
 from flask import Flask, request, jsonify
-import json
 from .pred import upvote_predictor, subreddit_prediction, decompress_pickle
 import pickle
-import numpy
 from pathlib import Path
-import basilica
-import en_core_web_sm
 
 def create_app():
     '''Create and configure an instance of the Flask application'''
@@ -47,24 +43,8 @@ def create_app():
             results.append({
                 'suggested_subreddit':sub,
                 'pred_upvotes':predictor_uv.predict(title_input, text_input, sub)})
-        # if results_input > 1:
-        #     return jsonify(sample_results[0][:results_input])
-        # else:
-        #     return jsonify(sample_results[0][:1])
-        # sug_sub = (sample_results[0][0])              
-        # print(sample_results[0][-1])    
-        # sug_sub_list = []
-        # while results_counter > 0:
-        #     results_counter += -1
-        #     sug_sub = (sample_results[results_counter][0])  
-        #     sug_sub_list += sug_sub
-        # print(sug_sub_list)
-        # ---------Eric's model-------
-
-        # pred_upvotes = predictor_uv.predict(title_input, text_input, sug_sub)
 
 
         return jsonify(results)
-        # return results_input
 
     return app

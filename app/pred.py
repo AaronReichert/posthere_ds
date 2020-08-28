@@ -1,6 +1,5 @@
 import basilica
 import pandas as pd
-import category_encoders
 # import spacy
 # import spacy.cli
 # spacy.cli.download("en_core_web_sm")
