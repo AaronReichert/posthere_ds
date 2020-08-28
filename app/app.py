@@ -32,8 +32,6 @@ def create_app():
         # results_counter = results_input
 
         # --------Haley's model---------
-        clf_model = decompress_pickle(r'Models/post_here_model.pbz2') 
-        nlp = en_core_web_sm.load()
         sample_results = subreddit_prediction(title_input, text_input, results_input)
         sample_results = sample_results.reset_index()
 
