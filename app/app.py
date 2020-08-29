@@ -1,4 +1,4 @@
-'''Import all necessary modules.'''
+# Import all necessary modules.
 import pickle
 from flask import Flask, request, jsonify
 from .pred import upvote_predictor, subreddit_prediction
@@ -17,11 +17,8 @@ def create_app():
     @app.route('/submit', methods=['GET'])
     def submit():
         return 'Enter your post here'
-
+    # Route set up to take in json inputs to be run through model based on title and text to first return a subreddit followed by a upvote.
     @app.route('/suggestions', methods=['POST'])
-    '''Route set up to take in json inputs to be run through model based on
-    title and text to first return a subreddit followed by a upvote'''
-    def suggestions():
         # Takes json requests from web.
         title_input = request.json['title']
         text_input = request.json['text']
