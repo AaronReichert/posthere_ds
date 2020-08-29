@@ -1,9 +1,9 @@
-'''Import all necessary modules.'''
+# Import all necessary modules.
 import basilica
 import pandas as pd
 import en_core_web_sm
 
-'''Decompressing file function'''
+# Decompressing file function.
 def decompress_pickle(file):
     import bz2
     import pickle
@@ -12,15 +12,15 @@ def decompress_pickle(file):
     data = cPickle.load(data)
     return data
 
-'''Subreddit prediction pickle file'''
+# Subreddit prediction pickle file.
 clf_model = decompress_pickle(r'Models/post_here_model.pbz2')
 nlp = en_core_web_sm.load()
 
-'''Get word vectors'''
+# Get word vectors.
 def get_word_vectors(docs):
     return [nlp(doc).vector for doc in docs]
 
-'''Returns 1-5 best subreddit based on user inputs'''
+# Returns 1-5 best subreddit based on user inputs.
 def subreddit_prediction(title, text, num_pred):
     title = pd.Series(title)
     text = pd.Series(text)
@@ -36,7 +36,7 @@ def subreddit_prediction(title, text, num_pred):
     else:
         return prediction[:1]
 
-'''Predicts the amount of upvotes per subreddit generated'''
+# Predicts the amount of upvotes per subreddit generated.
 class upvote_predictor:
     def __init__(self, model,):
         self.model = model
