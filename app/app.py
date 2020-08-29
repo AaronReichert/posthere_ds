@@ -19,7 +19,8 @@ def create_app():
         return 'Enter your post here'
     # Route set up to take in json inputs to be run through model based on title and text to first return a subreddit followed by a upvote.
     @app.route('/suggestions', methods=['POST'])
-        # Takes json requests from web.
+    # Takes json requests from web.
+    def suggestions():
         title_input = request.json['title']
         text_input = request.json['text']
         results_input = request.json['results']
