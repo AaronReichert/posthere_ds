@@ -14,6 +14,10 @@ def create_app():
     def root():
         return 'Where should you post that on reddit?'
 
+    @app.route('/submit', methods=['GET'])
+    def submit():
+        return 'Enter your post here'
+
     @app.route('/suggestions', methods=['POST'])
     '''Route set up to take in json inputs to be run through model based on
     title and text to first return a subreddit followed by a upvote'''
