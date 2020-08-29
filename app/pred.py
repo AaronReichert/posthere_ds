@@ -1,8 +1,5 @@
 import basilica
 import pandas as pd
-# import spacy
-# import spacy.cli
-# spacy.cli.download("en_core_web_sm")
 import en_core_web_sm
 
 
@@ -13,6 +10,7 @@ def decompress_pickle(file):
     data = bz2.BZ2File(file)
     data = cPickle.load(data)
     return data
+
 
 clf_model = decompress_pickle(r'Models/post_here_model.pbz2')
 nlp = en_core_web_sm.load()
