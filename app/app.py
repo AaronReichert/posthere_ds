@@ -3,12 +3,14 @@ import pickle
 from flask import Flask, request, jsonify
 from .pred import upvote_predictor, subreddit_prediction
 from pathlib import Path
+from flask_cors import CORS
 
 
 def create_app():
     '''Create and configure an instance of the Flask application'''
 
     app = Flask(__name__)
+    CORS(app)
 
     @app.route('/')
     def root():
@@ -18,6 +20,7 @@ def create_app():
     def submit():
         return 'Enter your post here'
     # Route set up to take in json inputs to be run through model based on title and text to first return a subreddit followed by a upvote.
+
     @app.route('/suggestions', methods=['POST'])
     # Takes json requests from web.
     def suggestions():
